@@ -483,6 +483,19 @@ initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completi
     }];
 }
 
+- (void)dealloc{
+    if (dialogType == 1 && alertHandler) {
+        alertHandler();
+        alertHandler = nil;
+    }else if(dialogType == 2 && alertHandler){
+        confirmHandler(NO);
+        confirmHandler = nil;
+    }else if(dialogType == 3 && promptHandler) {
+        promptHandler(@"");
+        promptHandler = nil;
+    }
+}
+
 @end
 
 
